@@ -2,8 +2,17 @@
 
 ## Installation
 
-To get started, require the package via Composer:
+To get started, you need to add this into the repositories array of your project's composer.json.
 
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/jantinnerezo/livewire-range-slider.git"
+    }
+],
+```
+And then require the package.
 ```
 composer require jantinnerezo/livewire-range-slider
 ```
@@ -39,7 +48,7 @@ Livewire Range Slider requires [Alpine](https://github.com/alpinejs/alpine). You
 ``` 
 
 ## Customization
-Styling makes it easy using Tailwind CSS
+Styling makes it easy using Tailwind CSS. `resources/js/range-slider/theming.js`
 ```javascript
 const plugin = require('tailwindcss/plugin');
 
@@ -55,4 +64,12 @@ module.exports = plugin(function({ addComponents, theme }) {
     }
     addComponents(components);
 });
+```
+
+And require plugin into the `tailwind.config.js`:
+
+``` javascript
+plugins: [
+   require('./resources/js/range-slider/theming.js')
+],
 ```
