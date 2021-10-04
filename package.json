@@ -1,0 +1,22 @@
+{
+  "name": "livewire-range-slider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jantinn Erezo",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "devDependencies": {
+    "nouislider": "^15.4.0",
+    "autoprefixer": "^10.2.5",
+    "laravel-mix": "^6.0.6",
+    "postcss": "^8.2.12"
+  }
+}
