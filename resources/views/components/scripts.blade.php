@@ -1,0 +1,1 @@
+@include('livewire-range-slider::script-renderer')

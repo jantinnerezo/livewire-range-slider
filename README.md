@@ -16,15 +16,11 @@ And then require the package.
 ```
 composer require jantinnerezo/livewire-range-slider
 ```
-Next, publish package scripts. To do this run:
-```
-php artisan vendor:publish --tag=livewire-range-slider --force
-```
-and include `@livewireRangeSliderScripts` directive after the other app scripts.
+Next, add `<x-livewire-range-slider::scripts />` component after the other app scripts.
 
 ```blade
 @livewireScripts
-@livewireRangeSliderScripts
+<x-livewire-range-slider::scripts />
 ``` 
 
 ## Alpine
