@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class LivewireRangeSliderServiceProvider extends ServiceProvider
 {
+    const VENDOR_PATH = 'vendor/js/livewire-range-slider';
+
     public function boot()
     {
         $this->registerViews();
@@ -25,7 +27,7 @@ class LivewireRangeSliderServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../dist' => public_path('js/vendor/livewire-range-slider'),
+                __DIR__.'/../dist' => public_path(self::VENDOR_PATH),
             ], 'livewire-range-slider');
         }
     }
@@ -33,7 +35,7 @@ class LivewireRangeSliderServiceProvider extends ServiceProvider
     private function registerDirectives()
     {
         Blade::directive('livewireRangeSliderScripts', function () {
-            $scriptPath = asset('/js/vendor/livewire-range-slider/range-slider.js');
+            $scriptPath = asset(self::VENDOR_PATH . 'range-slider.js');
             return <<<EOF
 <script src="{$scriptPath}"></script>
 EOF;
