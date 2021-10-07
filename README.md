@@ -1,30 +1,21 @@
-## Livewire Range Slider
+## Livewire Range Slider (WIP Docs)
+A simple blade component for your range slider needs. 
 
 ## Installation
 
-To get started, you need to add this into the repositories array of your project's composer.json.
-
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/jantinnerezo/livewire-range-slider.git"
-    }
-],
-```
-And then require the package.
+To get started, you need to require the packge to your project's composer.json.
 ```
 composer require jantinnerezo/livewire-range-slider
 ```
-Next, add `<x-livewire-range-slider::scripts />` component after the other app scripts.
+
+Next, add `<x-livewire-range-slider::scripts />` component after `@livewireScripts`.
 
 ```blade
-@livewireScripts
 <x-livewire-range-slider::scripts />
 ``` 
 
 ## Alpine
-Livewire Range Slider requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
+Livewire Range Slider requires [Alpine](https://github.com/alpinejs/alpine). Make you already included it:
 
 ```html
 <!-- Alpine v2 -->
@@ -36,12 +27,27 @@ Livewire Range Slider requires [Alpine](https://github.com/alpinejs/alpine). You
 
 ## Usage
 
+Assuming you have this properties inside your livewire component.
+``` php
+public $options = [
+    'start' => [
+        10,
+        20,
+    ],
+    'range' => [
+        'min' =>  [1],
+        'max' => [100]
+    ],
+]
+```
+
 ```blade
 <x-livewire-range-slider::range-slider  
     :options="$options" 
     wire:model="values"
 />
 ``` 
+You can also
 
 ## Customization
 Styling makes it easy using Tailwind CSS. `resources/js/range-slider/theming.js`
