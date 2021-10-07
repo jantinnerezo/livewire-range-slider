@@ -1,12 +1,18 @@
-@props(['options' => [], 'handling' => null])
+@props(['options' => []])
 
-<div 
-    x-data='LivewireRangeSlider({
+@php
+    $model = $attributes
+        ->wire('model')
+        ->hasModifier('lazy') ? $attributes->wire('model')->value() : 'undefined_model';
+@endphp
+
+<div
+    x-data='LivewireRangeSliderDevelop({
         options: {!! json_encode($options) !!},
-        model: "{{ $attributes->get('wire:model') }}",
-        handling: "{{ $handling }}",
+        model: "{{ $model }}"
     })'
-    x-init="init()"
+    x-init="init($dispatch)"
+    {{ $attributes }}
     wire:ignore
 >
     <div x-ref="range"></div>
