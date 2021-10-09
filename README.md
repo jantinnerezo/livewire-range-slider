@@ -76,7 +76,7 @@ The `$values` property is the model for the range slider values.
 
 ###### Livewire's default ``wire:model`` attribute
 
-```php
+```html
 <x-range-slider :options="$options" wire:model="values" />
 ```
 
@@ -86,7 +86,7 @@ The `$values` property is the model for the range slider values.
 
 If you want to avoid too many network requests, ``.debounce`` modifier works out-of-the-box.
 
-```php
+```html
 <x-range-slider 
     :options="$options" 
     wire:model.debounce.500ms="values" 
@@ -99,6 +99,6 @@ If you want to avoid too many network requests, ``.debounce`` modifier works out
 
 In cases where you don't need range slider to live, you can use`.defer` modifier.
 
-```php
+```html
 <x-range-slider :options="$options" wire:model.defer="values" />
 ```
