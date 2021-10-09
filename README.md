@@ -47,7 +47,7 @@ public $options = [
     wire:model="values"
 />
 ``` 
-You can also
+
 
 ## Customization
 Styling makes it easy using Tailwind CSS. `resources/js/range-slider/theming.js`
