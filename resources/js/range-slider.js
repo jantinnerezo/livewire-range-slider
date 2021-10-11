@@ -1,30 +1,19 @@
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css'
 
-const UNDEFINED_MODEL = 'undefined_model';
+const CHANGE_EVENT = 'change';
+const EMPTY_MODIFER = 'empty';
+const LAZY_MODIFIER = 'lazy';
+const DEFER_MODIFIER = 'defer';
 
 window.LivewireRangeSlider = function (data) {
     return {
         rangeSlider: null,
         models: [],
-        model: UNDEFINED_MODEL,
-        dispatch: null,
-        init($dispatch) {
-            this.dispatch = $dispatch;
-
-            this.setup();
-        
-            if (this.isLazy() || this.hasModels()) {
-                this.rangeSlider.on('change', 
-                    (values, handle) => this.handleChange(values, handle)
-                );
-
-                return;
-            }
-
-            this.rangeSlider.on('update', 
-                (values) => this.handleUpdate(values)
-            );            
+        modifier: EMPTY_MODIFER,
+        handleHistory: null,
+        init() {
+            this.setup();                       
         },
         setup() {
             noUiSlider.create(this.$refs.range, {
@@ -33,22 +22,32 @@ window.LivewireRangeSlider = function (data) {
 
             this.rangeSlider = this.$refs.range.noUiSlider;
 
-            
+            this.rangeSlider.on(CHANGE_EVENT, 
+                (values, handle) => this.handleUpdate(values, handle)
+            ); 
         },
-        handleUpdate(values) {
-            this.dispatch('input', values);
+        handleUpdate(values, handle) {
+            if (this.models[handle]  && this.modifier !== LAZY_MODIFIER) {
+                this.$wire.set(
+                    this.models[handle], values[handle], this.isDeferred()
+                );
+            }
+
+            // Save handle index
+            this.handleHistory = handle;
         },
         isLazy() {
-            return this.model !== UNDEFINED_MODEL;
+            return this.modifier === LAZY_MODIFIER;
         },
-        hasModels() {
-            return this.models.length === this.options.start.length;
+        isDeferred() {
+            return this.modifier === DEFER_MODIFIER;
         },
-        handleChange(values, handle) {
-            if (this.isLazy()) {
-                this.$wire.set(this.model, values);
-            } else {
-                this.$wire.set(this.models[handle], values[handle], this.deferred);
+        getValue() {
+            var model = this.models[this.handleHistory] ?? false;
+            var value = this.rangeSlider.get()[this.handleHistory];
+
+            if (this.isLazy() && model) {
+                this.$wire.set(model, value);
             }
         },
         ...data
