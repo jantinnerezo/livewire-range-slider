@@ -79,16 +79,6 @@ The `$values` property is the model for the range slider values.
 ```html
 <x-range-slider :options="$options" wire:model="values" />
 ```
- 
-
-#### Debouncing
-
-If you want to avoid too many network requests, `.debounce` modifier works out-of-the-box.
-
-```html
-<x-range-slider :options="$options" wire:model.debounce.500ms="values" />
-```
-
 
 #### Deferred
 
@@ -98,9 +88,9 @@ In cases where you don't need range slider to update live, you can use `.defer` 
 <x-range-slider :options="$options" wire:model.defer="values" />
 ```
 
-#### Targetting handle values
+#### Multiple properties
 
-Targetting a property for each handle also works out-of-the-box, simply add the properties to `wire:models` comma separated.
+Targetting a property for each handle also works out-of-the-box, simply add the properties comma separated.
 
 ```php
 
@@ -130,5 +120,5 @@ public $range = [
 ```
 
 ``` html
-<x-range-slider :options="$options" wire:models="range.min,range.max" />
+<x-range-slider :options="$options" wire:model="range.min,range.max" />
 ```
