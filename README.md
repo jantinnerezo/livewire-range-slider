@@ -12,7 +12,7 @@ To get started, you need to require the package to your project's composer.json
 composer require jantinnerezo/livewire-range-slider
 ```
 
-Next, simply add the component ``<x-livewire-range-slider::scripts />`` to your template after the ``@livewireScripts``.
+Next, simply add the component to your template after the ``@livewireScripts``.
 
 ```html
 <html>
@@ -102,3 +102,39 @@ In cases where you don't need range slider to live, you can use`.defer` modifier
 ```html
 <x-range-slider :options="$options" wire:model.defer="values" />
 ```
+
+###### Multiple properties
+
+Assigning a property for each handle also works out-of-the-box, simply add the properties to `wire:models` comma separated.
+
+```php
+
+public $options = [
+    'start' => [
+        10,
+        20
+    ],
+    'range' => [
+        'min' =>  [1],
+        'max' => [100]
+    ],
+    'connect' => true,
+    'behaviour' => 'tap-drag',
+    'tooltips' => true,
+    'pips' => [
+        'mode' => 'steps',
+        'stepped' => true,
+        'density' => 4
+    ]
+];
+
+public $handle1;
+
+public $handle2;
+```
+
+``` html
+<x-range-slider :options="$options" wire:models="handle1,handle2" />
+```
+
+Make sure the start array length and number of properties are matched.
