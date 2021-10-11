@@ -1,1 +1,6 @@
-@include('livewire-range-slider::script-renderer')
+@isset($jsPath)
+    <script>
+        /**** Livewire Range Slider Scripts ****/
+        {!! file_get_contents($jsPath) !!}
+    </script>
+@endisset

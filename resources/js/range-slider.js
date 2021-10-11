@@ -1,35 +1,53 @@
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css'
 
-const LAZY = 'lazy';
-const IMMEDIATE = 'immediate';
+const UNDEFINED_MODEL = 'undefined_model';
 
-window.LivewireRangeSlider = function (data) {
+window.LivewireRangeSliderDevelop = function (data) {
     return {
         rangeSlider: null,
-        model: null, 
-        handling: null,
-        init() {
+        models: [],
+        model: UNDEFINED_MODEL,
+        dispatch: null,
+        init($dispatch) {
+            this.dispatch = $dispatch;
+
+            this.setup();
+        
+            if (this.isLazy() || this.hasModels()) {
+                this.rangeSlider.on('change', 
+                    (values, handle) => this.handleChange(values, handle)
+                );
+
+                return;
+            }
+
+            this.rangeSlider.on('update', 
+                (values) => this.handleUpdate(values)
+            );            
+        },
+        setup() {
             noUiSlider.create(this.$refs.range, {
                 ...data.options
             })
 
             this.rangeSlider = this.$refs.range.noUiSlider;
-
-            if (this.handling == LAZY) {
-                this.rangeSlider.on('change', (values, handle) => {
-                    this.$wire.set(this.model, values);
-                });
-            }
-
-            if (this.handling == IMMEDIATE) {
-                this.rangeSlider.on('update', (values, handle) => {
-                    this.$wire.set(this.model, values);
-                });
-            }
         },
-        getValues() {
-            this.$wire.set(this.model, this.$refs.range.noUiSlider.get());
+        handleUpdate(values) {
+            this.dispatch('input', values);
+        },
+        isLazy() {
+            return this.model !== UNDEFINED_MODEL;
+        },
+        hasModels() {
+            return this.models.length === this.options.start.length;
+        },
+        handleChange(values, handle) {
+            if (this.isLazy()) {
+                this.$wire.set(this.model, values);
+            } else {
+                this.$wire.set(this.models[handle], values[handle]);
+            }
         },
         ...data
     }

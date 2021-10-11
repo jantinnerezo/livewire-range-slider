@@ -1,71 +1,140 @@
 ## Livewire Range Slider
 
-## Installation
+A  simple [noUiSlider](https://github.com/leongersen/noUiSlider) blade component for your Livewire Components.
 
-To get started, you need to add this into the repositories array of your project's composer.json.
+![preview](https://banners.beyondco.de/Livewire%20Range%20Slider.jpeg?theme=light&packageManager=composer+require&packageName=jantinnerezo%2Flivewire-range-slider&pattern=tinyCheckers&style=style_1&description=A+simple+noUiSlider+blade+component+for+your+Livewire+Components.&md=1&showWatermark=0&fontSize=100px&images=adjustments)
 
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/jantinnerezo/livewire-range-slider.git"
-    }
-],
-```
-And then require the package.
-```
+### Installation
+
+To get started, you need to require the package to your project's composer.json
+
+```bash
 composer require jantinnerezo/livewire-range-slider
 ```
-Next, add `<x-livewire-range-slider::scripts />` component after the other app scripts.
 
-```blade
-@livewireScripts
-<x-livewire-range-slider::scripts />
-``` 
-
-## Alpine
-Livewire Range Slider requires [Alpine](https://github.com/alpinejs/alpine). You can use the official CDN to quickly include Alpine:
+Next, simply add the component to your template after the ``@livewireScripts``.
 
 ```html
-<!-- Alpine v2 -->
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
-<!-- Alpine v3 -->
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<html>
+<body>
+    <!-- @livewireScripts -->
+    
+    <x-livewire-range-slider::scripts />
+</body>
+</html>
 ```
 
-## Usage
+### Requirements
 
-```blade
-<x-livewire-range-slider::range-slider  
-    :options="$options" 
-    wire:model="values"
+This package is meant to use with [Livewire](https://laravel-livewire.com/) components. Make sure you are using it with Livewire projects only.
+
+- PHP 7.4 or higher
+
+- [Laravel 8](https://laravel.com/docs/8.x/installation)
+
+- [Livewire](https://laravel-livewire.com/)
+
+- [Alpine](https://alpinejs.dev)
+
+- [noUiSlider](https://github.com/leongersen/noUiSlider) - already included into the package's bundled scripts.
+
+
+
+### Usage
+
+Assuming you have this properties inside your livewire component.
+
+```php
+
+public $options = [
+    'start' => [
+        10,
+        20
+    ],
+    'range' => [
+        'min' =>  [1],
+        'max' => [100]
+    ],
+    'connect' => true,
+    'behaviour' => 'tap-drag',
+    'tooltips' => true,
+    'pips' => [
+        'mode' => 'steps',
+        'stepped' => true,
+        'density' => 4
+    ]
+];
+
+public $values = [];
+```
+
+The `$options` property is simply the noUiSlider options you pass to the component, for more details and configurations please check [noUiSlider - JavaScript Range Slider | Refreshless.com](https://refreshless.com/nouislider/).
+
+The `$values` property is the model for the range slider values.
+
+
+
+###### Livewire's default ``wire:model`` attribute
+
+```html
+<x-range-slider :options="$options" wire:model="values" />
+```
+
+###### 
+
+###### Debouncing
+
+If you want to avoid too many network requests, ``.debounce`` modifier works out-of-the-box.
+
+```html
+<x-range-slider 
+    :options="$options" 
+    wire:model.debounce.500ms="values" 
 />
-``` 
-
-## Customization
-Styling makes it easy using Tailwind CSS. `resources/js/range-slider/theming.js`
-```javascript
-const plugin = require('tailwindcss/plugin');
-
-module.exports = plugin(function({ addComponents, theme }) {
-    const components = {
-        '.noUi-target': { },
-        '.noUi-base': { }.
-        '.noUi-origin': { },
-        '.noUi-handle': { },
-        '.noUi-touch-area': { },
-        '.noUi-connect': { },
-        '.noUi-state-tap': { }
-    }
-    addComponents(components);
-});
 ```
 
-And require plugin into the `tailwind.config.js`:
 
-``` javascript
-plugins: [
-   require('./resources/js/range-slider/theming.js')
-],
+
+###### Deferred
+
+In cases where you don't need range slider to live, you can use`.defer` modifier.
+
+```html
+<x-range-slider :options="$options" wire:model.defer="values" />
 ```
+
+###### Multiple properties
+
+Assigning a property for each handle also works out-of-the-box, simply add the properties to `wire:models` comma separated.
+
+```php
+
+public $options = [
+    'start' => [
+        10,
+        20
+    ],
+    'range' => [
+        'min' =>  [1],
+        'max' => [100]
+    ],
+    'connect' => true,
+    'behaviour' => 'tap-drag',
+    'tooltips' => true,
+    'pips' => [
+        'mode' => 'steps',
+        'stepped' => true,
+        'density' => 4
+    ]
+];
+
+public $handle1;
+
+public $handle2;
+```
+
+``` html
+<x-range-slider :options="$options" wire:models="handle1,handle2" />
+```
+
+Make sure the start array length and number of properties are matched.
