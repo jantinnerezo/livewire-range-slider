@@ -2,7 +2,7 @@
 
 A  simple [noUiSlider](https://github.com/leongersen/noUiSlider) blade component for your Livewire Components.
 
-
+![preview](https://banners.beyondco.de/Livewire%20Range%20Slider.jpeg?theme=light&packageManager=composer+require&packageName=jantinnerezo%2Flivewire-range-slider&pattern=tinyCheckers&style=style_1&description=A+simple+noUiSlider+blade+component+for+your+Livewire+Components.&md=1&showWatermark=0&fontSize=100px&images=adjustments)
 
 ### Installation
 
