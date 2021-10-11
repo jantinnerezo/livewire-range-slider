@@ -1,26 +1,26 @@
 ## Livewire Range Slider
 
-A  simple [noUiSlider](https://github.com/leongersen/noUiSlider) blade component for your Livewire Components.
+A simple [noUiSlider](https://github.com/leongersen/noUiSlider) blade component for your Livewire Components.
 
 ![preview](https://banners.beyondco.de/Livewire%20Range%20Slider.jpeg?theme=light&packageManager=composer+require&packageName=jantinnerezo%2Flivewire-range-slider&pattern=tinyCheckers&style=style_1&description=A+simple+noUiSlider+blade+component+for+your+Livewire+Components.&md=1&showWatermark=0&fontSize=100px&images=adjustments)
 
 ### Installation
 
-To get started, you need to require the package to your project's composer.json
+To get started, require the package to your project's composer.json
 
 ```bash
 composer require jantinnerezo/livewire-range-slider
 ```
 
-Next, simply add the component to your template after the ``@livewireScripts``.
+Next, add the scripts component to your template after the ``@livewireScripts``.
 
 ```html
 <html>
-<body>
-    <!-- @livewireScripts -->
-    
-    <x-livewire-range-slider::scripts />
-</body>
+    <body>
+        <!-- @livewireScripts -->
+
+        <x-livewire-range-slider::scripts />
+    </body>
 </html>
 ```
 
@@ -74,38 +74,33 @@ The `$values` property is the model for the range slider values.
 
 
 
-###### Livewire's default ``wire:model`` attribute
+#### Livewire's default `wire:model` attribute
 
 ```html
 <x-range-slider :options="$options" wire:model="values" />
 ```
+ 
 
-###### 
+#### Debouncing
 
-###### Debouncing
-
-If you want to avoid too many network requests, ``.debounce`` modifier works out-of-the-box.
+If you want to avoid too many network requests, `.debounce` modifier works out-of-the-box.
 
 ```html
-<x-range-slider 
-    :options="$options" 
-    wire:model.debounce.500ms="values" 
-/>
+<x-range-slider :options="$options" wire:model.debounce.500ms="values" />
 ```
 
 
+#### Deferred
 
-###### Deferred
-
-In cases where you don't need range slider to live, you can use`.defer` modifier.
+In cases where you don't need range slider to update live, you can use `.defer` modifier.
 
 ```html
 <x-range-slider :options="$options" wire:model.defer="values" />
 ```
 
-###### Multiple properties
+#### Targetting handle values
 
-Assigning a property for each handle also works out-of-the-box, simply add the properties to `wire:models` comma separated.
+Targetting a property for each handle also works out-of-the-box, simply add the properties to `wire:models` comma separated.
 
 ```php
 
@@ -128,13 +123,12 @@ public $options = [
     ]
 ];
 
-public $handle1;
-
-public $handle2;
+public $range = [
+    'min' => 10, // Targets handle 1 value
+    'max' => 100 // Targets handle 2 value
+];
 ```
 
 ``` html
-<x-range-slider :options="$options" wire:models="handle1,handle2" />
+<x-range-slider :options="$options" wire:models="range.min,range.max" />
 ```
-
-Make sure the start array length and number of properties are matched.
