@@ -2,14 +2,21 @@
 
 namespace Jantinnerezo\LivewireRangeSlider;
 
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
+use Jantinnerezo\LivewireRangeSlider\Exceptions\RangeSliderException;
+use Livewire\WireDirective;
 
 class LivewireRangeSlider extends Component
 {
-    const UNDEFINED_MODEL = 'undefined_model';
-
     public $options;
+
+    const EMPTY_MODIFER = 'empty';
+
+    const LAZY_MODIFIER = 'lazy';
+
+    const DEFER_MODIFIER = 'defer';
 
     /**
      * Create a new component instance.
@@ -21,52 +28,37 @@ class LivewireRangeSlider extends Component
         $this->options = $options;
     }
 
-    public function notEnoughModels(ComponentAttributeBag $attributes): bool
+    public function getWireModel(ComponentAttributeBag $attributes): array
     {
-        $modelCount = count($this->getWireModels($attributes));
+        $attribute = $attributes->wire('model');
+        $separator = ',';
 
-        if (
-            $this->getWireModel($attributes) === self::UNDEFINED_MODEL && $modelCount > 0
-        ) {
-            return count($this->options) != $modelCount;
-        }
-
-        return false;
-    }
-
-    public function missingWireModelAttributes(ComponentAttributeBag $attributes): bool
-    {
         if ( 
-            ! $attributes->wire('model')->value() && 
-            ! $attributes->wire('models')->value()
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public function getWireModel(ComponentAttributeBag $attributes): string
-    {
-        $model = $attributes->wire('model');
-
-        if ($model->hasModifier('lazy')) {
-            return $model->value();
-        }
-
-        return self::UNDEFINED_MODEL;
-    }
-
-    public function getWireModels(ComponentAttributeBag $attributes): array
-    {
-        $models = $attributes->wire('models');
-
-        if ($models->value()) 
+            (! $attribute->value() || is_bool($attribute->value())) || 
+            empty($attribute->value())
+         )
         {
-            return explode(',', $models->value());
+            throw new RangeSliderException(
+                'Missing or empty wire:model attribute.'
+            );
         }
 
-        return [];
+        return explode($separator, $attribute->value());
+    }
+
+    public function getWireModelModifier(ComponentAttributeBag $attributes)
+    {
+        if ($attributes->wire('model')->hasModifier('lazy')) 
+        {
+            return self::LAZY_MODIFIER;
+        }
+
+        if ($attributes->wire('model')->hasModifier('defer'))
+        {
+            return self::DEFER_MODIFIER;
+        }
+
+        return self::EMPTY_MODIFER;
     }
 
     public function render()

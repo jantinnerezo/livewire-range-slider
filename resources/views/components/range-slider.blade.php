@@ -1,24 +1,11 @@
-@php
-    $count = count($options['start']);
-    $modelsCount = count($getWireModels($attributes));
-    
-    if ($missingWireModelAttributes($attributes)) {
-        throw new \Jantinnerezo\LivewireRangeSlider\Exceptions\RangeSliderException('Missing wire:model or wire:models attribute.');
-    }
-
-    if ($notEnoughModels($attributes)) {
-        throw new \Jantinnerezo\LivewireRangeSlider\Exceptions\RangeSliderException(
-            "Properties you provided on wire:models did not match with the number of handles. Expected models count: {$count} received {$modelsCount} "
-        );
-    }
-@endphp
 <div
-    x-data='LivewireRangeSliderDevelop({
+    x-data='LivewireRangeSlider({
         options: {!! json_encode($options) !!},
-        models: {!! json_encode($getWireModels($attributes)) !!},
-        model: "{{ $getWireModel($attributes) }}"
+        models: {!! json_encode($getWireModel($attributes)) !!},
+        modifier: "{{ $getWireModelModifier($attributes) }}"
     })'
-    x-init="init($dispatch)"
+    x-init="init()"
+    @focusout="getValue"
     {{ $attributes }}
     wire:ignore
 >
