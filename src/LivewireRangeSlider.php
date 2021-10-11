@@ -28,7 +28,7 @@ class LivewireRangeSlider extends Component
         if (
             $this->getWireModel($attributes) === self::UNDEFINED_MODEL && $modelCount > 0
         ) {
-            return count($this->options) != $modelCount;
+            return count($this->options['start']) != $modelCount;
         }
 
         return false;

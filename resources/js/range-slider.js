@@ -3,7 +3,7 @@ import 'nouislider/dist/nouislider.css'
 
 const UNDEFINED_MODEL = 'undefined_model';
 
-window.LivewireRangeSliderDevelop = function (data) {
+window.LivewireRangeSlider = function (data) {
     return {
         rangeSlider: null,
         models: [],
@@ -32,6 +32,8 @@ window.LivewireRangeSliderDevelop = function (data) {
             })
 
             this.rangeSlider = this.$refs.range.noUiSlider;
+
+            
         },
         handleUpdate(values) {
             this.dispatch('input', values);
@@ -46,7 +48,7 @@ window.LivewireRangeSliderDevelop = function (data) {
             if (this.isLazy()) {
                 this.$wire.set(this.model, values);
             } else {
-                this.$wire.set(this.models[handle], values[handle]);
+                this.$wire.set(this.models[handle], values[handle], this.deferred);
             }
         },
         ...data

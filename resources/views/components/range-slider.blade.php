@@ -12,11 +12,13 @@
         );
     }
 @endphp
+
 <div
-    x-data='LivewireRangeSliderDevelop({
+    x-data='LivewireRangeSlider({
         options: {!! json_encode($options) !!},
         models: {!! json_encode($getWireModels($attributes)) !!},
-        model: "{{ $getWireModel($attributes) }}"
+        model: "{{ $getWireModel($attributes) }}",
+        deferred: {{ $attributes->wire('models')->hasModifier('defer') ? 1 : 0 }}
     })'
     x-init="init($dispatch)"
     {{ $attributes }}
