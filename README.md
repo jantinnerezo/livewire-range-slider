@@ -30,7 +30,7 @@ This package is meant to use with [Livewire](https://laravel-livewire.com/) comp
 
 - PHP 7.4 or higher
 
-- [Laravel 8](https://laravel.com/docs/8.x/installation)
+- Laravel 8 and 9
 
 - [Livewire](https://laravel-livewire.com/)
 
