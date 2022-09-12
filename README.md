@@ -65,7 +65,7 @@ public $options = [
     ]
 ];
 
-public $values = [];
+public $values;
 ```
 
 The `$options` property is simply the noUiSlider options you pass to the component, for more details and configurations please check [noUiSlider - JavaScript Range Slider | Refreshless.com](https://refreshless.com/nouislider/).
