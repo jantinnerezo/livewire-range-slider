@@ -13,7 +13,7 @@ window.LivewireRangeSlider = function (data) {
         modifier: EMPTY_MODIFER,
         handleHistory: null,
         init() {
-            this.setup();                       
+            this.setup(); 
         },
         setup() {
             noUiSlider.create(this.$refs.range, {

@@ -1,0 +1,14 @@
+{
+  "resources/js/range-slider.js": {
+    "file": "assets/range-slider.5e5d4202.js",
+    "src": "resources/js/range-slider.js",
+    "isEntry": true,
+    "css": [
+      "assets/range-slider.812efd31.css"
+    ]
+  },
+  "resources/js/range-slider.css": {
+    "file": "assets/range-slider.812efd31.css",
+    "src": "resources/js/range-slider.css"
+  }
+}
