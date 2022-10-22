@@ -5,3 +5,4 @@
 composer.lock
 .phpunit.result.cache
 /build
+mix-manifest.json
