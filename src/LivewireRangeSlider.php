@@ -2,30 +2,27 @@
 
 namespace Jantinnerezo\LivewireRangeSlider;
 
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
 use Jantinnerezo\LivewireRangeSlider\Exceptions\RangeSliderException;
-use Livewire\WireDirective;
 
 class LivewireRangeSlider extends Component
 {
-    public $options;
+    public const DEFAULT_SOURCE = 'range';
 
-    const EMPTY_MODIFER = 'empty';
+    public array $options;
 
-    const LAZY_MODIFIER = 'lazy';
-
-    const DEFER_MODIFIER = 'defer';
+    public string $source;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(array $options)
+    public function __construct(array $options, string $source = self::DEFAULT_SOURCE)
     {
         $this->options = $options;
+        $this->source = $source;
     }
 
     public function getWireModel(ComponentAttributeBag $attributes): array
@@ -46,19 +43,14 @@ class LivewireRangeSlider extends Component
         return explode($separator, $attribute->value());
     }
 
-    public function getWireModelModifier(ComponentAttributeBag $attributes)
+    public function getWireModelModifier(ComponentAttributeBag $attributes): string
     {
-        if ($attributes->wire('model')->hasModifier('lazy')) 
-        {
-            return self::LAZY_MODIFIER;
-        }
-
         if ($attributes->wire('model')->hasModifier('defer'))
         {
-            return self::DEFER_MODIFIER;
+            return 'defer';
         }
 
-        return self::EMPTY_MODIFER;
+        return 'default';
     }
 
     public function render()

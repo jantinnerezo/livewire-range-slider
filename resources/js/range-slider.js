@@ -1,55 +1,57 @@
 import noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css'
 
-const CHANGE_EVENT = 'change';
-const EMPTY_MODIFER = 'empty';
-const LAZY_MODIFIER = 'lazy';
-const DEFER_MODIFIER = 'defer';
+window.LivewireRangeSlider = function (source, options) {
+    const { 
+        models, 
+        modifier, 
+        position, 
+        ...noUiSliderOptions 
+    } = options
 
-window.LivewireRangeSlider = function (data) {
     return {
         rangeSlider: null,
-        models: [],
-        modifier: EMPTY_MODIFER,
-        handleHistory: null,
-        init() {
-            this.setup();                       
-        },
+        models: options.models,
+        modifier: options.modifier,
+        position: options.position,
         setup() {
-            noUiSlider.create(this.$refs.range, {
-                ...data.options
+            if (!this.$refs[source]) {
+                console.error(`No such ref: "${source}"`)
+
+                return
+            }
+
+            noUiSlider.create(this.$refs[source], noUiSliderOptions)
+
+            this.rangeSlider = this.$refs[source].noUiSlider
+
+            this.rangeSlider.on('change', (values, handle) =>  {
+                this.setModelValue(values, handle)
             })
-
-            this.rangeSlider = this.$refs.range.noUiSlider;
-
-            this.rangeSlider.on(CHANGE_EVENT, 
-                (values, handle) => this.handleUpdate(values, handle)
-            ); 
         },
-        handleUpdate(values, handle) {
-            if (this.models[handle]  && this.modifier !== LAZY_MODIFIER) {
-                this.$wire.set(
-                    this.models[handle], values[handle], this.isDeferred()
-                );
+        setModelValue(values, handle) {
+            if (!this.models[handle]) {
+                console.error(`No such model for handle ${handle}`)
+
+                return
             }
 
-            // Save handle index
-            this.handleHistory = handle;
-        },
-        isLazy() {
-            return this.modifier === LAZY_MODIFIER;
-        },
-        isDeferred() {
-            return this.modifier === DEFER_MODIFIER;
-        },
-        getValue() {
-            var model = this.models[this.handleHistory] ?? false;
-            var value = this.rangeSlider.get()[this.handleHistory];
+            const model = this.models[handle]
+            const value = parseFloat(values[handle])
 
-            if (this.isLazy() && model) {
-                this.$wire.set(model, value);
+            if (this.position) {
+                this.wire(model, {
+                    model,
+                    value,
+                    position: this.rangeSlider.getPositions()[handle]
+                })
+
+                return;
             }
+
+            this.wire(this.models[handle], value)
         },
-        ...data
+        wire(property, value) {
+            this.$wire.set(property, value, this.modifier === 'defer')
+        }
     }
 }

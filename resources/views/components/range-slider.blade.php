@@ -1,14 +1,14 @@
 <div
-    x-data='LivewireRangeSlider({
-        options: {!! json_encode($options) !!},
+    x-data='LivewireRangeSlider("{{ $source }}", {
         models: {!! json_encode($getWireModel($attributes)) !!},
-        modifier: "{{ $getWireModelModifier($attributes) }}"
+        modifier: "{{ $getWireModelModifier($attributes) }}",
+        position: {{ $attributes->get("position") ? 1 : 0 }},
+        ...{!! json_encode($options) !!}
     })'
-    x-init="init()"
-    @focusout="getValue"
+    x-init="setup"
     {{ $attributes }}
     wire:ignore
 >
-    <div x-ref="range"></div>
+    <div x-ref="{{ $source }}"></div>
     {{ $slot }}
 </div>
