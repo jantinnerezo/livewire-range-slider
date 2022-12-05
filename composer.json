@@ -1,17 +1,17 @@
 {
-    "name": "jantinnerezo/livewire-range-slider",
+    "name": "nettantra/livewire-range-slider",
     "description": "A Tall Stack wrapper for noUiSlider Range Slider",
     "keywords": [
-        "jantinnerezo",
+        "nettantra",
         "livewire-range-slider"
     ],
-    "homepage": "https://github.com/jantinnerezo/livewire-range-slider",
+    "homepage": "https://github.com/nettantra/livewire-range-slider",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Jantinn Erezo",
-            "email": "erezojantin@gmail.com",
+            "name": "Devadatta Sahoo",
+            "email": "webmaster@nettantra.com",
             "role": "Developer"
         }
     ],
