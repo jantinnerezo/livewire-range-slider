@@ -13,9 +13,12 @@ window.LivewireRangeSlider = function (data) {
         modifier: EMPTY_MODIFER,
         handleHistory: null,
         init() {
-            this.setup();                       
+            this.setup();
         },
         setup() {
+            if(Object.hasOwn(this.$refs.range, 'noUiSlider'))
+                return;
+
             noUiSlider.create(this.$refs.range, {
                 ...data.options
             })
