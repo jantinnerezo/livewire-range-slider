@@ -1,8 +1,8 @@
 <?php
 
-namespace Jantinnerezo\LivewireRangeSlider\Tests;
+namespace SantoshJena\LivewireRangeSlider\Tests;
 
-use Jantinnerezo\LivewireRangeSlider\LivewireRangeSliderServiceProvider;
+use SantoshJena\LivewireRangeSlider\LivewireRangeSliderServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 

@@ -1,19 +1,13 @@
 ## Livewire Range Slider
 
-<a href="https://packagist.org/packages/jantinnerezo/livewire-range-slider"><img src="https://img.shields.io/packagist/v/jantinnerezo/livewire-range-slider" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/jantinnerezo/livewire-range-slider"><img src="https://img.shields.io/packagist/dt/jantinnerezo/livewire-range-slider" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/jantinnerezo/livewire-range-slider"><img src="https://img.shields.io/packagist/l/jantinnerezo/livewire-range-slider" alt="License"></a>
-
 A simple [noUiSlider](https://github.com/leongersen/noUiSlider) blade component for your Livewire Components.
-
-![preview](https://banners.beyondco.de/Livewire%20Range%20Slider.jpeg?theme=light&packageManager=composer+require&packageName=jantinnerezo%2Flivewire-range-slider&pattern=tinyCheckers&style=style_1&description=A+simple+noUiSlider+blade+component+for+your+Livewire+Components.&md=1&showWatermark=0&fontSize=100px&images=adjustments)
 
 ### Installation
 
 To get started, require the package to your project's composer.json
 
 ```bash
-composer require jantinnerezo/livewire-range-slider
+composer require santoshjena/livewire-range-slider
 ```
 
 Next, add the scripts component to your template after the ``@livewireScripts``.

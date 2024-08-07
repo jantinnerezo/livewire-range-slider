@@ -1,6 +1,6 @@
 <?php
 
-namespace Jantinnerezo\LivewireRangeSlider;
+namespace SantoshJena\LivewireRangeSlider;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;

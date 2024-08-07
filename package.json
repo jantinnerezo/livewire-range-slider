@@ -2,7 +2,7 @@
   "name": "livewire-range-slider",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Jantinn Erezo",
+  "author": "Santosh Jena",
   "license": "MIT",
   "scripts": {
     "dev": "npm run development",

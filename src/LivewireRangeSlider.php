@@ -1,11 +1,11 @@
 <?php
 
-namespace Jantinnerezo\LivewireRangeSlider;
+namespace SantoshJena\LivewireRangeSlider;
 
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
-use Jantinnerezo\LivewireRangeSlider\Exceptions\RangeSliderException;
+use SantoshJena\LivewireRangeSlider\Exceptions\RangeSliderException;
 use Livewire\WireDirective;
 
 class LivewireRangeSlider extends Component
